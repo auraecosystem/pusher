@@ -6,3 +6,5 @@ instawp login --token <your-api-token>
 
 # Check your session
 instawp whoami
+
+
