@@ -15,3 +15,13 @@ instawp exec <site> cat wp-config.php
 # --api transport (no SSH setup required; works behind firewalls / in CI)
 instawp wp <site> option get siteurl --api
 instawp exec <site> php -v --api
+export INSTAWP_TOKEN=${{ secrets.INSTAWP_TOKEN }}
+
+# Create a preview site for a PR
+instawp create --name "pr-$PR_NUMBER" --json
+
+# Run a smoke test
+instawp wp "pr-$PR_NUMBER" option get siteurl --api
+
+# Clean up
+instawp sites delete "pr-$PR_NUMBER" --force
